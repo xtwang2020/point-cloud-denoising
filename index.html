@@ -1,0 +1,411 @@
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Task-Agnostic Learning to Accomplish New Tasks">
+        <meta name="author"
+            content="Xianqi Zhang, Xingtao Wang, Xu Liu, Wenrui Wang, Xiaopeng Fan*, Debin Zhao">
+        <title>基于深度学习的点云去噪算法研究</title>
+
+        <!-- Bootstrap core CSS -->
+        <!--link href="bootstrap.min.css" rel="stylesheet"-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- Custom styles for this template -->
+        <link href="assets/offcanvas.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <!-- Font Awesome CSS -->
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet" media="screen">
+        <!-- Animate css -->
+        <link href="assets/css/animate.css" rel="stylesheet">
+        <!-- Magnific css -->
+        <link href="assets/css/magnific-popup.css" rel="stylesheet">
+        <!-- Responsive CSS -->
+        <link href="assets/css/responsive.css" rel="stylesheet">
+        <link rel="shortcut icon" href="assets/images/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/images/ico/apple-touch-icon-57-precomposed.png">
+
+        <nav class="navbar navbar-custom" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="custom-collapse">
+                <!-- 
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="">Code [After Review]</a></li>
+                    </ul>
+                -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://arxiv.org/">Paper</a></li>
+                    </ul>
+                </div>
+            </div><!-- .container -->
+        </nav>
+    </head>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container"></div>
+        <h1 style="text-align: center; margin-bottom: 5px;"><font color="000000">基于深度学习的点云去噪算法研究</font></h1>
+        <h3 style="text-align: center; margin-bottom: 5px;"><font color="000000">王兴涛 博士毕业论文</font></h3>
+        <hr>
+        <p class="authors">
+            <a href="https://scholar.google.com/citations?user=4LsZhDgAAAAJ&hl=zh-CN&oi=ao">导师: 范晓鹏教授, <i>Senior Member, IEEE</i></a>
+        </p>
+        <h4 style="text-align: center; margin-bottom: 10px;"><font color="4e79a7">The Research Center of Intelligent
+		Interface and Human Computer Interaction</font></h4>
+        <h4 style="text-align: center; margin-bottom: 0px;"><font color="4e79a7">Harbin Institute of Technology</font></h4>
+    </div>
+
+    <div class="container">
+
+        <!-- 摘要 -->
+        <div class="section">
+            <hr style="margin-top: 5px;">
+            <h2 style="text-align:center;"><font color="4e79a7">摘要/研究目的/意义？？？</font></h2>
+            <hr>
+            <p align="justify">
+            <font color="000000">
+                &nbsp;&nbsp;&nbsp;&nbsp; <!-- 缩进 -->
+                摘要/研究目的/意义？？？
+            </font>
+            </p>
+        </div>
+        <br>
+    
+    
+        <!-- 论文 1 -->
+        <div class="section">
+            <h2 style="text-align:center;"><font color="4e79a7">论文 1/第xxx章节</font></h2>
+            <h3 style="text-align:center;"><font color="4e79a7"><a href="https://arxiv.org/">PointFilterNet: A Filtering Network for Point Cloud Denoising</a></font></h3>
+            <hr>
+            <h3 style="text-align:left;"><font color="4e79a7">1. Abstract</font></h3>
+            <h4 style="text-align:left;"><font color="000000">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Point clouds obtained by 3D scanning or reconstruction are usually accompanied by noise. Filtering-based point cloud denoising 
+                methods are simple and effective, but they are limited by the manually defined coefficients. Deep learning has shown excellent 
+                ability in automatically learning parameters. In this paper, a filtering network named PointFilterNet (PFN for short) is proposed 
+                to denoise point clouds by the combination of filtering and deep learning. Instead of directly outputting denoised points using 
+                networks, PFN generates the filtering denoised points through learned coefficients. Specifically, PFN outputs three coefficient 
+                vectors. These coefficient vectors are then used to filter the coordinates of points in the neighborhood of the noisy point. 
+                PFN consists of two parts: an outlier recognizer and a denoiser, both of which generate different but indispensable filtering 
+                coefficients. The outlier recognizer reduces the interference of outliers by assigning small coefficients to them. The denoiser 
+                is designed to progressively denoise point clouds which accords to the perception process of the human visual system. 
+                The experiments on synthetic and real scanned point clouds demonstrate that PFN outperforms state-of-the-art point cloud 
+                denoising works. Compared with DMR, the Chamfer distance of PFN is reduced by 22.07% on PCN-dataset.
+                </font></h4>
+            <br>
+            
+            <h3 style="text-align:left;"><font color="4e79a7">2. Framework Overview</font></h3>
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/01/1_1.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The structure of the outlier recognizer. Inside the rounded rectangles are data. Inside the rectangles are operations. 
+                    Different operations are marked with different colors.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/01/1_2.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The structure of the denoiser. Inside the rounded rectangles are data. Inside the rectangles are operations. Different operations 
+                    are marked with different colors. The parts indicated by the red arrows are applied only for fine-grained recovery.
+                </font></p>
+                <br>
+
+            <h3 style="text-align:left;"><font color="4e79a7">3. Visualization</font></h3>
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/01/1_3.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    Some outlier removal results of R<sub>𝑃𝐹𝑁</sub> and R<sub>𝑃𝐹𝑁</sub> (w/o 𝑑𝑚𝑒𝑎𝑛) under noise level of 2.5% on PCN-dataset. The figure shows the points retained 
+                    after outlier removal. The correctly reserved non-outliers are marked in blue. The wrongly reserved outliers are in purple. A better result 
+                    should contain more blue points and fewer purple points. The last row is the statistical histogram of the reserved points in each column. 
+                    The lengths of blue rectangles reflect the numbers of all retained points. The purple rectangles are related to the numbers of reserved 
+                    outliers. Since there is a huge gap between the numbers of all points and the numbers of outliers, they refer to two different ordinate axes, 
+                    top for all points and bottom for outliers.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/01/1_4.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    Some outlier removal results of R<sub>𝑃𝐹𝑁</sub> (center) and R<sub>𝑃𝐶𝑁</sub> on PCN-dataset under noise level of 2.5%. 
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/01/1_5.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    Some denoised point clouds of PCN-dataset under the noise level of 2.5%. The distance from each denoised point to the clean point cloud is 
+                    color-coded. The statistical histograms provide the distribution of the distances. In histograms, the x-axis is the distance from the 
+                    denoised point to the clean point cloud. The y-axis is the number of points. We also plot the fitted Gaussian curve of each distribution 
+                    and show the parameters (𝜇 and 𝜎) for convenient observation. The smaller the 𝜇 and 𝜎, the better the performance.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/01/1_6.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The results on Kinect Fusion dataset. For each shape, a Poisson reconstruction with color-coded errors is shown.
+                </font></p>
+                <br>
+        </div>
+        <br>
+
+        <!-- 论文 2 -->
+        <div class="section">
+            <h2 style="text-align:center;"><font color="4e79a7">论文 2/第xxx章节</font></h2>
+            <h3 style="text-align:center;"><font color="4e79a7"><a href="https://arxiv.org/">Meta-PCD: Point Cloud Denoising with Customized Parameters</a></font></h3>
+            <hr>
+            <h3 style="text-align:left;"><font color="4e79a7">1. Abstract</font></h3>
+            <h4 style="text-align:left;"><font color="000000">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Recent research on point cloud denoising (PCD) networks has achieved great success with the development of neural networks designed for point 
+                clouds. However, existing PCD networks usually adopt fixed learned parameters on various point patches ranging from simple to complex, from 
+                weakly noisy to strongly noisy, which counts against the denoising performance. In this paper, we propose a meta-learning-based method called 
+                Meta-PCD to cope with the point patch diversity through dynamically customizing denoising parameters for each point patch. Meta-PCD consists of 
+                a meta-network and a denoising network. For each noisy patch, the meta-network customizes the denoising parameters first, and then the denoising 
+                network uses the customized parameters to infer the denoised point. Specifically, the meta-network includes a feature extraction module (FEM) and 
+                a parameter regression module (PRM). FEM captures local and global features of a noisy patch. PRM predicts the denoising parameters for the patch 
+                based on the captured features through a three-branch structure. To reduce the parameters to be predicted, the denoising network is designed as 
+                a single-layer network that is derived from a multi-layer network according to Taylor’s formula. The single-layer network takes the Taylor’s 
+                expansion of coordinates of a patch as input, which makes the single-layer network perform similarly to the original multi-layer network but 
+                with much fewer parameters, making the training of the meta-network easier and resulting in better performance. Experimental results show that 
+                Meta-PCD is superior to state-of-the-art methods on both synthetic and realscanned point clouds.
+                </font></h4>
+            <br>
+            
+            <h3 style="text-align:left;"><font color="4e79a7">2. Framework Overview</font></h3>
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/02/2_1.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The diagram of training a denoising network for each kind of point patches.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/02/2_2.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The framework of Meta-PCD. FEM and PRM represent the feature extraction module and the parameter regression module, respectively.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/02/2_3.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The structure of the meta-network. MLP denotes a multi-layer perceptron. PM means the max-pooling layer. C stands for concatenating. 
+                    R is a reshape operation.
+                </font></p>
+                <br>
+
+
+
+            <h3 style="text-align:left;"><font color="4e79a7">3. Visualization</font></h3>
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/02/2_4.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    Some denoised point clouds on PCN-dataset under the noise level of 2.5%. The distance from each denoised point to the clean point cloud is 
+                    color-coded as indicated in the color bar. A better result usually contains more blue points. Additionally, there is a histogram on the 
+                    right of each point cloud to count the error distribution of denoised points. The x-axis is the distances from denoised points to clean 
+                    point clouds. The y-axis is the number of points. The slenderer the histogram, the better the performance. We also plot the fitted Gaussian 
+                    curve of each distribution and show the parameters (𝜇 and 𝜎) for convenient observation. The smaller the 𝜇 and 𝜎, the better the performance.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/02/2_4.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The denoising results with color-coded errors on Kinect Fusion.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/02/2_6.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The results on the Paris-rue-Madame dataset.
+                </font></p>
+                <br>
+        </div>
+        <br>
+
+
+        <!-- 论文 3 -->
+        <div class="section">
+            <h2 style="text-align:center;"><font color="4e79a7">论文 3/第xxx章节</font></h2>
+            <h3 style="text-align:center;"><font color="4e79a7"><a href="https://arxiv.org/">FCNet: Learning Noise-free Features for Point Cloud Denoising</a></font></h3>
+            <hr>
+            <h3 style="text-align:left;"><font color="4e79a7">1. Abstract</font></h3>
+            <h4 style="text-align:left;"><font color="000000">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                The acquisition of point clouds is usually accompanied by noise due to imperfect laser scanning or image-based reconstruction techniques. 
+                Deep learning-based methods have achieved impressive performance in point cloud denoising. However, the features captured by a denoising network 
+                from noisy point clouds are usually contaminated by noise during training. The feature noise will count against the network parameter 
+                optimization, and thus influence the denoising performance. In this paper, we propose to learn the noise-free features for point cloud denoising 
+                from two aspects. First, we propose the feature clean network (FCNet for short) to explicitly clean up the feature noise in the feature domain. 
+                Second, we train FCNet by a novel teacher-student learning model to implicitly learn the noise-free features. Specifically, FCNet is designed 
+                with emphasis on two modules: non-local self-similarity (NSS) and weighted average pooling (WAP). NSS module utilizes a non-local filter to 
+                denoise features according to the inherent non-local self-similarity of point clouds. WAP module applies the weighted average pooling by the 
+                statistical outlier removal algorithm to suppress the feature noise induced by outliers. In the teacher-student learning model, the teacher and 
+                student networks have the same structure. The teacher network takes clean data as input to capture noisefree features. The student network is 
+                trained to imitate the teacher network to learn noise-free features by minimizing the feature loss. The experiments on synthetic and real scanned 
+                point clouds show that FCNet outperforms state-of-the-art point cloud denoising methods.
+                </font></h4>
+            <br>
+            
+            <h3 style="text-align:left;"><font color="4e79a7">2. Framework Overview</font></h3>
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/03/3_1.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The overview of FCNet. (Q)STN stands for the (quaternion) spatial transformer network. NSS and WAP mean the proposed NSS module and WAP 
+                    module, respectively.
+                </font></p>
+                <br>
+
+                <div class="row justify-content-center text-center">
+                    <div class="col-sm-6">
+                        <img src="images/paper/03/3_2.png" style="width:100%">
+                        <h4><p align="justify"><font color="grey">
+                            The structure of NSS module. ⊗ denotes matrix multiplication. ⊕stands for matrix addition.
+                        </font></p></h4>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <br><br>
+                        <img src="images/paper/03/3_3.png" style="width:100%">
+                        <br><br>
+                        <h4><p align="justify"><font color="grey">
+                            The structure of WAP module. is row-wise multiplication. Pave represents the average pooling layer.
+                        </font></p></h4>
+                    </div>
+                </div>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/03/3_4.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The training of the teacher and student networks.
+                </font></p>
+                <br>
+
+            <h3 style="text-align:left;"><font color="4e79a7">3. Visualization</font></h3>
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/03/3_5.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The denoised point clouds on PCN-dataset under the noise level of 2.5%. In order to eliminate the influence of point density on observation, 
+                    we randomly sample 20K points in each point cloud. The distance from each denoised point to clean point clouds is color-coded as shown in the 
+                    color bar. The statistical histograms provide the distribution of distances. The x-axis is the distances from denoised points to clean point 
+                    clouds. The y-axis is the number of points. We also plot the fitted Gaussian curve of each distribution and show the parameters (𝜇 and f) for 
+                    convenient observation. The smaller the 𝜇 and f, the better the performance.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/03/3_6.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The results with color-coded errors on the Kinect Fusion dataset.
+                </font></p>
+                <br>
+
+                <div class="col justify-content-center text-center">
+                    <div class="col-sm-12">
+                        <img src="images/paper/03/3_7.png" style="width:100%">
+                    </div>
+                </div>
+                <p align="justify"><font color="grey">
+                    The experimental results on the Paris-rue-Madame dataset.
+                </font></p>
+                <br>
+        </div>
+        <br>
+
+        <div class="section">
+            <h3 style="text-align:left;"><font color="4e79a7">Contact</font></h3>
+            <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                If you have any questions, please feel free to contact <font color="4e79a7">Xingtao Wang</font> [xtwang@hit.edu.cn].
+            </p>
+        </div>
+        <hr>
+
+        <div class="section">
+            <h3 style="text-align:left;"><font color="4e79a7">Bibtex</font></h3>
+            <hr>
+            <div class="bibtexsection">
+                To Do
+            </div>
+        </div>
+        <hr>
+    </dev>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+</html>
